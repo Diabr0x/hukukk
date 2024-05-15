@@ -1,0 +1,100 @@
+﻿@model hukukk.Models.UyelerModel
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h4>Giriş Yap</h4>
+            </div>
+            <div class="card-body">
+                <h1>@ViewBag.Message</h1>
+                <form method="post" action="/Home/Login">
+                    <div class="form-group">
+                        <label for="Kullanici">Kullanıcı Adı:</label>
+                        <input type="text" id="Kullanici" name="Kullanici" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.Kullanici)
+                    </div>
+                    <div class="form-group">
+                        <label for="Sifre">Şifre:</label>
+                        <input type="password" id="Sifre" name="Sifre" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.Sifre)
+                    </div>
+                    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

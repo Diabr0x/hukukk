@@ -1,0 +1,1 @@
+﻿INSERT INTO Kullanicilar (KullaniciAdi, Sifre) VALUES ('admin', '1234');

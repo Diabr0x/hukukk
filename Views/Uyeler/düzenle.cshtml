@@ -1,0 +1,134 @@
+﻿@model IEnumerable<hukukk.Models.UyelerModel>
+
+@{
+    ViewData["Title"] = "Üyeleri Düzenle";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .btn-create {
+            margin-bottom: 20px;
+        }
+
+        .table {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+            .table thead th {
+                background-color: #007bff;
+                color: #fff;
+                border-color: #007bff;
+                text-align: center;
+                vertical-align: middle;
+                font-weight: bold;
+                font-size: 16px;
+            }
+
+            .table tbody tr:hover {
+                background-color: #e9ecef;
+            }
+
+            .table tbody td {
+                vertical-align: middle;
+                text-align: center;
+            }
+
+        .btn-actions {
+            margin-right: 5px;
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+            .btn-actions i {
+                margin-right: 5px;
+            }
+
+        .btn-edit {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #333;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+            color: #fff;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
+        }
+
+        .btn-actions:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>@ViewData["Title"]</h1>
+        <a asp-action="ekle" class="btn btn-primary btn-create">Yeni Üye Ekle</a>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Kullanıcı Adı</th>
+                        <th>Şifre</th>
+                        <th>Email</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Kullanici</td>
+                            <td>@item.Sifre</td>
+                            <td>@item.Email</td>
+                            <td>
+                                <a asp-action="düzenlee" asp-route-id="@item.Id" class="btn btn-info btn-actions"><i class="fas fa-edit"></i> Düzenle</a>
+                                <a asp-action="details" asp-route-id="@item.Id" class="btn btn-info btn-actions"><i class="fas fa-info-circle"></i> Detaylar</a>
+                                <a asp-action="silme" asp-route-id="@item.Id" class="btn btn-danger btn-actions"><i class="fas fa-trash-alt"></i> Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+</body>
+</html>

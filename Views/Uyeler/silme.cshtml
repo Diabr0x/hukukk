@@ -1,0 +1,44 @@
+﻿@model hukukk.Models.UyelerModel
+
+@{
+    ViewData["Title"] = "silme";
+}
+
+<h1>silme</h1>
+
+<h3>Silmek istediğine emin misin ?</h3>
+<div>
+    <h4>UyelerModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Kullanici)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Kullanici)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sifre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sifre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+    
+    <form asp-action="silme">
+        <input type="submit" value="Sil" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

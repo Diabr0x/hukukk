@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana Sayfa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5; /* Yeni arka plan rengi */
+            color: #333; /* Yazı rengi */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding-top: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #007bff; /* Başlık rengi */
+        }
+
+        .calendar-container,
+        .tasks-container {
+            width: 80%;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+            background-color: #fff; /* Takvim ve görevlerin arka plan rengi */
+        }
+
+        .month-year {
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #555; /* Ay ve yıl rengi */
+        }
+
+        .days {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .day {
+            width: calc(100% / 7);
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid #ccc; /* Kenarlık rengi */
+            margin: 2px;
+            background-color: #f9f9f9; /* Gün arka plan rengi */
+            cursor: pointer;
+        }
+
+            .day.selected {
+                background-color: #007bff; /* Seçilen günün arka plan rengi */
+                color: #fff; /* Seçilen günün yazı rengi */
+            }
+
+        .tasks {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .task {
+            margin-bottom: 5px;
+            background-color: #007bff; /* Görev kutusunun arka plan rengi */
+            color: #fff; /* Görev kutusunun yazı rengi */
+            padding: 10px; /* Görev kutusunun iç boşluğu */
+            border-radius: 5px; /* Görev kutusunun köşe yuvarlama */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Hoşgeldiniz</h1>
+        </div>
+
+        <div class="calendar-container">
+            <div class="container-title">Takvim</div>
+            <div class="month-year">
+                @DateTime.Now.ToString("MMMM yyyy")
+            </div>
+            <div class="days">
+                @{
+                    DateTime today = DateTime.Today;
+                    int daysInMonth = DateTime.DaysInMonth(today.Year, today.Month);
+                    for (int i = 1; i <= daysInMonth; i++)
+                    {
+                        <div class="day @(today.Day == i ? "selected" : "")">@i</div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="tasks-container">
+            <div class="container-title">Görevler</div>
+            <div class="tasks">
+                <div class="task">Görev 1</div>
+                <div class="task">Görev 2</div>
+                <div class="task">Görev 31</div>
+                <!-- Diğer görevlerin listesi burada olacak -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

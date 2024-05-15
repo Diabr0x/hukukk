@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hukukk</title>
+
+    <!-- Font Awesome kütüphanesi -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Üst çubuk stilleri */
+        .top-bar {
+            background-color: #303030;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000; /* Üstte kalmasını sağlar */
+            position: fixed; /* Sabit pozisyon */
+            width: 100%; /* Sayfa genişliği kadar */
+            top: 0; /* En üstte */
+            overflow: hidden; /* İçeriği sığdır */
+            min-width: 100%; /* En az sayfa genişliği kadar */
+        }
+
+        /* Logo stili */
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Arama kutusu stili */
+        .search-box {
+            width: 800px; /* Kutu uzunluğunu kısalt */
+            margin-right: 20px; /* Sağ boşluk */
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+            .search-box input[type="text"] {
+                width: 100%;
+                padding: 8px;
+                border: none;
+                border-radius: 100px;
+            }
+
+        /* Profil ve Zoom butonları stili */
+        .login-btn,
+        .zoom-btns {
+            align-items: center;
+        }
+
+            .login-btn button,
+            .zoom-btns button {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 10px; /* Buton içeriği ile kenar arasındaki mesafe */
+                margin-left: 10px;
+                cursor: pointer;
+            }
+
+                .login-btn button:hover,
+                .zoom-btns button:hover {
+                    background-color: #0056b3;
+                }
+
+        /* Sidebar stilleri */
+        .sidebar {
+            width: 200px;
+            background-color: #1f1f1f; /* Menü arka plan rengi */
+            padding-top: 20px;
+            position: fixed;
+            top: 60px; /* Üst çubuk yüksekliği kadar aşağıya kaydır */
+            left: 0;
+            bottom: 0; /* Sayfayı yukarıdan aşağıya kadar kaplar */
+            z-index: 100; /* Üst çubuğun altında kalır */
+        }
+
+        .menu-item {
+            display: block;
+            padding: 10px;
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid #444; /* Menü elemanları arasına çizgi ekle */
+        }
+
+            .menu-item:hover {
+                background-color: #444; /* Üzerine gelindiğinde arka plan rengini değiştir */
+            }
+
+        .support {
+            background-color: #007bff; /* Arka plan rengi */
+            color: white; /* Yazı rengi */
+        }
+
+            .support:hover {
+                background-color: #0056b3; /* Üzerine gelindiğinde arka plan rengini değiştir */
+            }
+
+        .content {
+            margin-top: 80px; /* Sidebar ve üst çubuk yüksekliği kadar aşağıya kaydır */
+            padding-left: 220px; /* Sidebar genişliği kadar sağa kaydır */
+        }
+    </style>
+</head>
+<body>
+    <!-- Üst çubuk -->
+    <div class="top-bar">
+        <!-- Logo -->
+        <div class="logo">HUKUKK</div>
+
+        <!-- Arama kutusu -->
+        <div class="search-box">
+            <input type="text" placeholder="Ara...">
+            <!-- Oturum açma butonu -->
+            <div class="login-btn">
+                <button onclick="location.href='@Url.Action("login", "Home")'">Oturum Aç</button>
+            </div>
+            <!-- Zoom butonları -->
+            <div class="zoom-btns">
+                <button id="zoom-out"><i class="fas fa-minus"></i></button>
+                <span id="zoom-value"> %100 </span>
+                <button id="zoom-in"><i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a class="menu-item Ana sayfa" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Ana Sayfa</a>
+        <a class="menu-item Büromuz" asp-controller="Home" asp-action="Büromuz"><i class="fas fa-building"></i> Büromuz</a>
+        <a class="menu-item Gizlilik" asp-controller="Home" asp-action="Privacy"><i class="fas fa-user-secret"></i> Gizlilik</a>
+        <a class="menu-item Destek" asp-controller="Home" asp-action="Index1"><i class="fas fa-headset"></i> Destek</a>
+    </div>
+
+    <div class="content">
+        @RenderBody()
+    </div>
+
+    <script>
+        document.getElementById('zoom-in').addEventListener('click', function () {
+            var currentZoom = parseFloat(document.body.style.zoom) || 1;
+            var newZoom = currentZoom * 1.25;
+            document.body.style.zoom = newZoom;
+            document.getElementById('zoom-value').innerText = ' %' + Math.round(newZoom * 100);
+        });
+
+        document.getElementById('zoom-out').addEventListener('click', function () {
+            var currentZoom = parseFloat(document.body.style.zoom) || 1;
+            var newZoom = currentZoom * 0.75;
+            document.body.style.zoom = newZoom;
+            document.getElementById('zoom-value').innerText = ' %' + Math.round(newZoom * 100);
+        });
+    </script>
+</body>
+</html>

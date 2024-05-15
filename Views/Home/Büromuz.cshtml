@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Büromuz Hakkında</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff; /* Yazı rengi */
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Hafif gölge efekti */
+            text-align: left;
+            background-image: url('https://avehukuk.com/wp-content/uploads/2023/03/DAVA-VE-ICRA-TAKIBI-1.jpg'); /* Arka plan resmi */
+            background-size: cover;
+            background-position: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            margin-top: 50px; /* Sayfanın orta üst kısmına doğru yerleştirme */
+            text-align: center; /* Başlık metnini ortala */
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .about {
+            margin-bottom: 30px;
+        }
+
+        .about h2 {
+            background-color: #333; /* Çalışanlar başlık arka plan rengi */
+            color: #fff; /* Çalışanlar başlık metin rengi */
+            padding: 10px 20px; /* Çalışanlar başlık içi boşluk */
+            border-radius: 5px; /* Çalışanlar başlık köşe yuvarlaklığı */
+            display: inline-block;
+            margin-right: 10px; /* Başlık ve içerik arası boşluk */
+        }
+
+        table {
+            width: 100%;
+            max-width: 800px; /* Tablonun maksimum genişliği */
+            margin: auto;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Hafif gölge efekti */
+            background-color: #222; /* Çalışanlar tablo arka plan rengi */
+        }
+
+        th, td {
+            border: 1px solid #fff; /* Kenar çizgileri */
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #333; /* Başlık arka plan rengi */
+            color: #fff; /* Başlık metin rengi */
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.2); /* Çift sıradaki arka plan rengi */
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Üzerine gelindiğinde arka plan rengi */
+            cursor: pointer; /* İşaretçiyi el simgesi yap */
+        }
+    </style>
+</head>
+<body>
+    <h1>Hukuk Büromuza Hoşgeldiniz</h1>
+    <div class="container">
+        <div class="about">
+            <h2>Çalışanlar</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ad Soyad</th>
+                        <th>Çalışma Grubu</th>
+                        <th>Telefon Numarası</th>
+                        <th>Eposta Adresi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr onclick="window.location.href = '/Home/Index2';" style="cursor: pointer;">
+                        <td>Çalışan 1</td>
+                        <td>Hukuk Departmanı</td>
+                        <td>1234567890</td>
+                        <td>calisan1@example.com</td>
+                    </tr>
+                    <!-- Diğer çalışanlar buraya eklenebilir -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+﻿@model hukukk.Models.UyelerModel
+
+@{
+    ViewData["Title"] = "Düzenle";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #007bff;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+        .back-link {
+            display: inline-block;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+            .back-link:hover {
+                color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="form-container">
+                    <h1>@ViewData["Title"]</h1>
+                    <form asp-action="düzenle">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Id" class="control-label">ID:</label>
+                            <input asp-for="Id" class="form-control" readonly />
+                            <span asp-validation-for="Id" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Kullanici" class="control-label">Kullanıcı Adı:</label>
+                            <input asp-for="Kullanici" class="form-control" />
+                            <span asp-validation-for="Kullanici" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Sifre" class="control-label">Şifre:</label>
+                            <input asp-for="Sifre" class="form-control" />
+                            <span asp-validation-for="Sifre" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label">Email:</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </div>
+                    </form>
+                    <a asp-action="düzenle" class="back-link">Listeye Geri Dön</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
