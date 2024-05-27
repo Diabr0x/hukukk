@@ -1,27 +1,76 @@
 ﻿@model IEnumerable<hukukk.Models.GorevModel>
 
-<h1>Görevler</h1>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Kullanıcı ID</th>
-            <th>Görev Adı</th>
-            <th>Görev Açıklaması</th>
-            <th>Tarih</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var gorev in Model)
-        {
-            <tr>
-                <td>@gorev.Id</td>
-                <td>@gorev.KullaniciId</td>
-                <td>@gorev.GorevAdi</td>
-                <td>@gorev.GorevAciklama</td>
-                <td>@gorev.Tarih</td>
-            </tr>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görevler</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
         }
-    </tbody>
-</table>
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+            .table th, .table td {
+                padding: 12px 15px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .table th {
+                background-color: #f2f2f2;
+                color: #333;
+            }
+
+            .table tbody tr:hover {
+                background-color: #f9f9f9;
+            }
+    </style>
+</head>
+<body>
+    <h1>Görevler</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Kullanıcı ID</th>
+                <th>Görev Adı</th>
+                <th>Görev Açıklaması</th>
+                <th>Tarih</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var gorev in Model)
+            {
+                <tr>
+                    <td>@gorev.Id</td>
+                    <td>@gorev.KullaniciId</td>
+                    <td>@gorev.GorevAdi</td>
+                    <td>@gorev.GorevAciklama</td>
+                    <td>@gorev.Tarih</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

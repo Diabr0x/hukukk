@@ -177,7 +177,7 @@
     <!-- Üst çubuk -->
     <div class="top-bar">
         <!-- Logo -->
-        <div class="logo">HUKUK</div>
+        <div class="logo"><span><i class="fas fa-balance-scale-left"></i></span> HUKUK</div>
 
        
             <!-- Oturum açma butonu -->
@@ -197,11 +197,13 @@
             }
             else
             {
-                <span>Hoş Geldin, @ViewData["UserName"]</span>
+                <span>Hoş Geldin <i class="fas fa-laptop"></i>, @ViewData["UserName"]</span>
+
                 <!-- Sidebar -->
     <div class="sidebar">
         <a class="menu-item Ana sayfa" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Ana Sayfa</a>
         <a class="menu-item Büromuz" asp-controller="Home" asp-action="Büromuz"><i class="fas fa-building"></i> Büromuz</a>
+                    <a class="menu-item Görevlerim" asp-controller="Uyeler" asp-action="Gorevler"><i class="far fa-clipboard"></i> Görevlerim</a>
         <a class="menu-item Gizlilik" asp-controller="Home" asp-action="Privacy"><i class="fas fa-user-secret"></i> Gizlilik</a>
         <a class="menu-item Destek" asp-controller="Home" asp-action="Index1"><i class="fas fa-headset"></i> Destek</a>
     </div>
