@@ -3,12 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hukukk</title>
+    <title>Hukuk Bürosu</title>
 
     <!-- Font Awesome kütüphanesi -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
+        a.navbar-brand {
+            white-space: normal;
+            text-align: center;
+            word-break: break-all;
+        }
+
+        a {
+            color: #0077cc;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #1b6ec2;
+            border-color: #1861ac;
+        }
+
+        .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+            color: #fff;
+            background-color: #1b6ec2;
+            border-color: #1861ac;
+        }
+
+        .border-top {
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .border-bottom {
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .box-shadow {
+            box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+        }
+
+        button.accept-policy {
+            font-size: 1rem;
+            line-height: inherit;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            white-space: nowrap;
+            line-height: 60px;
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -37,28 +84,15 @@
             font-weight: bold;
         }
 
-        /* Arama kutusu stili */
-        .search-box {
-            width: 800px; /* Kutu uzunluğunu kısalt */
-            margin-right: 20px; /* Sağ boşluk */
-            position: relative;
+        /* Profil ve Zoom butonları stili */
+        .admin-btn,
+        .login-btn,
+        .zoom-btns {
             display: flex;
             align-items: center;
         }
 
-            .search-box input[type="text"] {
-                width: 100%;
-                padding: 8px;
-                border: none;
-                border-radius: 100px;
-            }
-
-        /* Profil ve Zoom butonları stili */
-        .login-btn,
-        .zoom-btns {
-            align-items: center;
-        }
-
+            .admin-btn,
             .login-btn button,
             .zoom-btns button {
                 background-color: #007bff;
@@ -68,12 +102,30 @@
                 padding: 5px 10px; /* Buton içeriği ile kenar arasındaki mesafe */
                 margin-left: 10px;
                 cursor: pointer;
+                transition: background-color 0.3s ease; /* Arka plan renginde geçiş animasyonu */
             }
 
+                .admin-btn,
                 .login-btn button:hover,
                 .zoom-btns button:hover {
                     background-color: #0056b3;
                 }
+
+        /* Yönetim butonu stili */
+        .admin-btn {
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 25px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+
+            .admin-btn:hover {
+                background-color: #218838;
+            }
 
         /* Sidebar stilleri */
         .sidebar {
@@ -119,15 +171,32 @@
     <!-- Üst çubuk -->
     <div class="top-bar">
         <!-- Logo -->
-        <div class="logo">HUKUKK</div>
+        <div class="logo">HUKUK</div>
 
-        <!-- Arama kutusu -->
-        <div class="search-box">
-            <input type="text" placeholder="Ara...">
+       
             <!-- Oturum açma butonu -->
-            <div class="login-btn">
-                <button onclick="location.href='@Url.Action("login", "Home")'">Oturum Aç</button>
-            </div>
+        @if ((bool)(ViewData["IsLoggedIn"] ?? false) && (string)ViewData["UserName"] == "Admin")
+        {
+            // Eğer kullanıcı Admin ise, yönetim butonunu göster
+            <button onclick="openAdminPage()">Yönetim</button>
+        }
+        
+        <div class="login-btn" style="margin-left: auto; padding-right: 20px;">
+            @if (ViewData["IsLoggedIn"] as bool? != true)
+            {
+                <button onclick="location.href='@Url.Action("Login", "Login")'">Oturum Aç</button>
+            }
+            else
+            {
+                <span>Hoş Geldin, @ViewData["UserName"]</span>
+                <!-- Sidebar -->
+    <div class="sidebar">
+        <a class="menu-item Ana sayfa" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Ana Sayfa</a>
+        <a class="menu-item Büromuz" asp-controller="Home" asp-action="Büromuz"><i class="fas fa-building"></i> Büromuz</a>
+        <a class="menu-item Gizlilik" asp-controller="Home" asp-action="Privacy"><i class="fas fa-user-secret"></i> Gizlilik</a>
+        <a class="menu-item Destek" asp-controller="Home" asp-action="Index1"><i class="fas fa-headset"></i> Destek</a>
+    </div>
+            }
             <!-- Zoom butonları -->
             <div class="zoom-btns">
                 <button id="zoom-out"><i class="fas fa-minus"></i></button>
@@ -137,17 +206,18 @@
         </div>
     </div>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <a class="menu-item Ana sayfa" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Ana Sayfa</a>
-        <a class="menu-item Büromuz" asp-controller="Home" asp-action="Büromuz"><i class="fas fa-building"></i> Büromuz</a>
-        <a class="menu-item Gizlilik" asp-controller="Home" asp-action="Privacy"><i class="fas fa-user-secret"></i> Gizlilik</a>
-        <a class="menu-item Destek" asp-controller="Home" asp-action="Index1"><i class="fas fa-headset"></i> Destek</a>
-    </div>
+    
 
     <div class="content">
         @RenderBody()
     </div>
+    <script>
+        function openAdminPage() {
+            // Admin sayfasını açmak için burada gerekli işlemleri yap
+            // Örneğin:
+            window.location.href = '@Url.Action("düzenle", "Uyeler")';
+        }
+    </script>
 
     <script>
         document.getElementById('zoom-in').addEventListener('click', function () {

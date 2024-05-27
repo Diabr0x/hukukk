@@ -26,19 +26,21 @@ namespace hukukk.Controllers
                     var user = _uyeDbIsle.GetUser(model.Kullanici, model.Sifre);
                     if (user != null)
                     {
-                        // Kullanıcı doğrulandı, ana sayfaya yönlendir
+                        HttpContext.Session.SetString("IsLoggedIn", "true");
+                        HttpContext.Session.SetString("UserName", model.Kullanici);
+                       
                         return RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        // Kullanıcı doğrulanamadı, hata mesajı göster
+                        
                         ViewBag.Message = "Kullanıcı adı veya şifre yanlış";
                     }
                 }
                 // Model doğrulama başarısız olduğunda tekrar login sayfasını göster
                 return View();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Handle the exception here, you can log it or handle it according to your application's requirements
                 ModelState.AddModelError(string.Empty, "Bir hata oluştu. Lütfen daha sonra tekrar deneyin.");

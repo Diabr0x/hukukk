@@ -1,0 +1,47 @@
+﻿@model IEnumerable<hukukk.Models.UyelerModel>
+
+@{
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+    ViewData["Title"] = "Görev Ekle";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>@ViewData["Title"]</h1>
+
+        <!-- Görev Ekleme Formu -->
+        <div class="card">
+            <div class="card-body">
+                <form method="post" action="@Url.Action("Gorevekle", "Uyeler")">
+                    <div class="form-group">
+                        <label for="kullaniciId">Kullanıcı:</label>
+                        <select id="kullaniciId" name="kullaniciId" class="form-control" required>
+                            <option value="">Kullanıcı Seçin</option>
+                            @foreach (var user in ViewBag.Users)
+                            {
+                                <option value="@user.Id">@user.Id - @user.Adi_Soyadi</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="gorevAdi">Görev Adı:</label>
+                        <input type="text" id="gorevAdi" name="gorevAdi" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gorevAciklama">Görev Açıklaması:</label>
+                        <textarea id="gorevAciklama" name="gorevAciklama" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ekle</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,109 @@
+﻿@model hukukk.Models.UyelerModel
+
+@{
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+    ViewData["Title"] = "Detaylar";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        .card-header {
+            background-color: #343a40;
+            color: #fff;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .card-footer {
+            background-color: #f8f9fa;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .btn-primary, .btn-secondary {
+            border-radius: 20px;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4 text-center">Detaylar</h1>
+
+        <div class="card">
+            <div class="card-header text-center">
+                <h4>Üye Bilgileri</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.Id)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Id)
+                    </dd>
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.Adi_Soyadi)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Adi_Soyadi)
+                    </dd>
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.TelefonNo)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.TelefonNo)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.Kullanici)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Kullanici)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.Sifre)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Sifre)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.Unvan)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Unvan)
+                    </dd>
+                </dl>
+            </div>
+            <div class="card-footer text-right">
+                @Html.ActionLink("Düzenle", "düzenlee", new { id = Model.Id }, new { @class = "btn btn-primary mr-2" })
+                <a asp-action="düzenle" class="btn btn-secondary">Listeye Dön</a>
+                <a asp-action="Gorevler" class="btn btn-secondary">Görevler</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

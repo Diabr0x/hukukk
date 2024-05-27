@@ -3,6 +3,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace hukukk.Models
 {
@@ -17,36 +19,43 @@ namespace hukukk.Models
         public bool kayitekle(UyelerModel liste1)
         {
             Baglan();
-            string sql = "INSERT INTO Uyelerr (Kullanici, Sifre, Email) VALUES (@Kullanici, @Sifre, @Email)";
+            string sql = "INSERT INTO Uyelerr (Kullanici, Sifre, Email, Unvan, Adi_Soyadi, TelefonNo) VALUES (@Kullanici, @Sifre, @Email, @Unvan, @Adi_Soyadi , @TelefonNo)";
             SqlCommand komut = new SqlCommand(sql, baglanti);
             komut.Parameters.AddWithValue("@Kullanici", liste1.Kullanici);
             komut.Parameters.AddWithValue("@Sifre", liste1.Sifre);
+            komut.Parameters.AddWithValue("@TelefonNo", liste1.TelefonNo);
+            komut.Parameters.AddWithValue("@Unvan", liste1.Unvan);
+            komut.Parameters.AddWithValue("@Adi_Soyadi", liste1.Adi_Soyadi);
             komut.Parameters.AddWithValue("@Email", liste1.Email);
+
             int etkilenen = 0;
-            etkilenen=komut.ExecuteNonQuery();
+            etkilenen = komut.ExecuteNonQuery();
             baglanti.Close();
             if (etkilenen >= 1)
 
                 return true;
-            else 
+            else
                 return false;
 
         }
         public List<UyelerModel> Uyelerigetir()
         { Baglan();
-         List<UyelerModel> liste1=new List<UyelerModel>();
+            List<UyelerModel> liste1 = new List<UyelerModel>();
             string sql = "Select * from Uyelerr Order By Kullanici";
-            SqlCommand komut = new SqlCommand( sql, baglanti);
-            SqlDataAdapter adap1= new SqlDataAdapter(komut);
-            DataTable tablo1=new DataTable();
+            SqlCommand komut = new SqlCommand(sql, baglanti);
+            SqlDataAdapter adap1 = new SqlDataAdapter(komut);
+            DataTable tablo1 = new DataTable();
             adap1.Fill(tablo1);
             baglanti.Close();
-            foreach(DataRow kayit in tablo1.Rows)
+            foreach (DataRow kayit in tablo1.Rows)
             {
                 liste1.Add(new UyelerModel
                 {
                     Id = Convert.ToInt32(kayit["Id"]),
                     Sifre = Convert.ToString(kayit["Sifre"]),
+                    TelefonNo = Convert.ToString(kayit["TelefonNo"]),
+                    Adi_Soyadi = Convert.ToString(kayit["Adi_Soyadi"]),
+                    Unvan = Convert.ToString(kayit["Unvan"]),
                     Kullanici = Convert.ToString(kayit["Kullanici"]),
                     Email = Convert.ToString(kayit["Email"])
 
@@ -57,9 +66,12 @@ namespace hukukk.Models
         public bool Uyebilgiduzen(UyelerModel liste1)
         {
             Baglan();
-            string sql = "UPDATE Uyelerr SET Kullanici=@Kullanici, Sifre=@Sifre, Email=@Email WHERE Id=@Id";
+            string sql = "UPDATE Uyelerr SET Kullanici=@Kullanici, Sifre=@Sifre, Email=@Email, Unvan=@Unvan, TelefonNo=@TelefonNo, Adi_Soyadi=@Adi_Soyadi WHERE Id=@Id";
             SqlCommand komut = new SqlCommand(sql, baglanti);
             komut.Parameters.AddWithValue("@Kullanici", liste1.Kullanici);
+            komut.Parameters.AddWithValue("@Adi_Soyadi", liste1.Adi_Soyadi);
+            komut.Parameters.AddWithValue("@Unvan", liste1.Unvan);
+            komut.Parameters.AddWithValue("@TelefonNo", liste1.TelefonNo);
             komut.Parameters.AddWithValue("@Sifre", liste1.Sifre);
             komut.Parameters.AddWithValue("@Email", liste1.Email);
             komut.Parameters.AddWithValue("@Id", liste1.Id); // Güncellenecek kaydı belirtmek için Id'yi kullanın
@@ -76,13 +88,13 @@ namespace hukukk.Models
             }
         }
         public bool Uyesil(int Id)
-        { 
+        {
             Baglan();
             string sql = "DELETE FROM Uyelerr WHERE Id=@Id";
-            SqlCommand komut=new SqlCommand(sql, baglanti);
+            SqlCommand komut = new SqlCommand(sql, baglanti);
             komut.Parameters.AddWithValue("@Id", Id);
-            int etkilenen = 0;  
-            etkilenen=komut.ExecuteNonQuery();
+            int etkilenen = 0;
+            etkilenen = komut.ExecuteNonQuery();
             baglanti.Close();
             if (etkilenen >= 1)
             { return true; }
@@ -116,6 +128,148 @@ namespace hukukk.Models
 
             return user;
         }
+        public UyelerModel Detaylar(int Id)
+        {
+            Baglan();
+            string sql = "SELECT * FROM Uyelerr WHERE Id = @Id";
+            SqlCommand komut = new SqlCommand(sql, baglanti);
+            komut.Parameters.AddWithValue("@Id", Id);
+
+            SqlDataReader reader = komut.ExecuteReader();
+            UyelerModel user = null;
+
+            if (reader.Read())
+            {
+                user = new UyelerModel
+                {
+                    Id = Convert.ToInt32(reader["Id"]),
+                    Kullanici = reader["Kullanici"].ToString(),
+                    TelefonNo = reader["TelefonNo"].ToString(),
+                    Unvan = reader["Unvan"].ToString(),
+                    Adi_Soyadi = reader["Adi_Soyadi"].ToString(),
+                    Sifre = reader["Sifre"].ToString(),
+                    Email = reader["Email"].ToString()
+                };
+            }
+
+            baglanti.Close();
+
+            return user;
+        }
+        public List<UyelerModel> Kullanicilar()
+        {
+            Baglan();
+            string sql = "SELECT * FROM Uyelerr";
+            SqlCommand komut = new SqlCommand(sql, baglanti);
+            List<UyelerModel> uyeler = new List<UyelerModel>();
+            try
+            {
+                baglanti.Open();
+                SqlDataReader reader = komut.ExecuteReader();
+                while (reader.Read())
+                {
+                    UyelerModel uyelerModel = new UyelerModel();
+                    uyelerModel.Id = Convert.ToInt32(reader["Id"]);
+                    uyelerModel.Kullanici = reader["Kullanici"].ToString();
+                    uyelerModel.Unvan = reader["Unvan"].ToString();
+                    uyelerModel.Adi_Soyadi = reader["Adi_Soyadi"].ToString();
+                    uyelerModel.TelefonNo = reader["TelefonNo"].ToString();
+                    uyelerModel.Sifre = reader["Sifre"].ToString();
+                    uyelerModel.Email = reader["Email"].ToString();
+                    uyeler.Add(uyelerModel);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                // Hata yönetimi burada yapılabilir
+            }
+            finally
+            {
+                baglanti.Close();
+            }
+            return uyeler;
+        }
+        public void Gorevekle(int? kullaniciId, string gorevAdi, string gorevAciklama)
+        {
+            // Kullanıcı ID'si alınamadıysa ekleme işlemi yapılmaz
+            if (!kullaniciId.HasValue || kullaniciId.Value == 0)
+            {
+                // Hata yönetimi burada yapılabilir
+                return;
+            }
+
+            Baglan();
+            string sql = "INSERT INTO Gorevler (KullaniciId, GorevAdi, GorevAciklama, Tarih) VALUES (@KullaniciId, @GorevAdi, @GorevAciklama, @Tarih)";
+            SqlCommand komut = new SqlCommand(sql, baglanti);
+
+            try
+            {
+                // Yeni bir GorevModel oluştur
+                GorevModel yeniGorev = new GorevModel
+                {
+                    KullaniciId = kullaniciId.Value, // Kullanıcı ID'si nullable olduğundan dolayı Value özelliği kullanılır
+                    GorevAdi = gorevAdi,
+                    GorevAciklama = gorevAciklama,
+                    Tarih = DateTime.Now // Şuanki zamanı ekle
+                };
+
+                // Parametrelerin eklenmesi
+                komut.Parameters.AddWithValue("@KullaniciId", yeniGorev.KullaniciId);
+                komut.Parameters.AddWithValue("@GorevAdi", yeniGorev.GorevAdi);
+                komut.Parameters.AddWithValue("@GorevAciklama", yeniGorev.GorevAciklama);
+                komut.Parameters.AddWithValue("@Tarih", yeniGorev.Tarih);
+
+                // Komutun çalıştırılması
+                baglanti.Open();
+                komut.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                // Hata yönetimi burada yapılabilir
+                Console.WriteLine("Hata: " + ex.Message);
+            }
+            finally
+            {
+                baglanti.Close();
+            }
+        }
+        public List<GorevModel> GorevleriGetir()
+        {
+            Baglan();
+            List<GorevModel> gorevler = new List<GorevModel>();
+            string sql = "SELECT * FROM Gorevler";
+            SqlCommand komut = new SqlCommand(sql, baglanti);
+
+            try
+            {
+                baglanti.Open();
+                SqlDataReader reader = komut.ExecuteReader();
+                while (reader.Read())
+                {
+                    GorevModel gorev = new GorevModel();
+                    gorev.Id = Convert.ToInt32(reader["Id"]);
+                    gorev.KullaniciId = Convert.ToInt32(reader["KullaniciId"]);
+                    gorev.GorevAdi = reader["GorevAdi"].ToString();
+                    gorev.GorevAciklama = reader["GorevAciklama"].ToString();
+                    gorev.Tarih = Convert.ToDateTime(reader["Tarih"]);
+                    gorevler.Add(gorev);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                // Hata yönetimi burada yapılabilir
+            }
+            finally
+            {
+                baglanti.Close();
+            }
+            return gorevler;
+        }
+
     }
+
 }
+
 

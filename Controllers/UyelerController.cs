@@ -27,6 +27,7 @@ namespace hukukk.Controllers
                 {
                     ViewData["sonucmesaj"] = "Kayıt eklendi";
                     ModelState.Clear();
+                    return RedirectToAction("düzenle");
                 }
             }
            return View(liste1);
@@ -61,10 +62,100 @@ namespace hukukk.Controllers
                 {
                     ViewData["sonucmesaj"] = "Kayıt silindi";
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("düzenle");
             }catch
             { return View(); }
         }
+        public ActionResult detaylar(int Id)
+        {
+            UyeDbİsle uyeDbİsle1 = new UyeDbİsle();
+            UyelerModel kullaniciDetaylari = uyeDbİsle1.Detaylar(Id);
+
+            if (kullaniciDetaylari != null)
+            {
+                return View(kullaniciDetaylari);
+            }
+            else
+            {
+                // Kullanıcı bulunamadı mesajı görüntüleyin
+                ViewData["hataMesaji"] = "Kullanıcı bulunamadı.";
+                return View();
+            }
+        }
+        public IActionResult Gorevler()
+        {
+            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
+            UyeDbİsle uyeDbİsle1 = new UyeDbİsle();
+            var gorevler = uyeDbİsle1.GorevleriGetir();
+            return View(gorevler);
+        }
+
         
+        [HttpGet]
+        public IActionResult Gorevekle()
+        {
+            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
+            UyeDbİsle uyeDbİsle1 = new UyeDbİsle();
+            ViewBag.Users = uyeDbİsle1.Uyelerigetir(); // Uyelerigetir metodu uyeleri getirir.
+            return View();
+
+        }
+
+        [HttpPost]
+        public IActionResult Gorevekle(int? kullaniciId, string gorevAdi, string gorevAciklama)
+        {
+            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
+            try
+            {
+                Console.WriteLine("Gorevekle metodu başlatıldı.");
+                Console.WriteLine($"KullanıcıId: {kullaniciId}, GorevAdi: {gorevAdi}, GorevAciklama: {gorevAciklama}");
+
+                // Kullanıcı adı ve görev adının boş olmadığını kontrol et
+                if (string.IsNullOrWhiteSpace(gorevAdi) || kullaniciId == null)
+                {
+                    Console.WriteLine("Görev adı veya kullanıcı ID boş olamaz.");
+                    TempData["ErrorMessage"] = "Görev adı veya kullanıcı ID boş olamaz.";
+                    return RedirectToAction("Gorevekle");
+                }
+
+                UyeDbİsle uyeDbİsle1 = new UyeDbİsle();
+                GorevModel yeniGorev = new GorevModel
+                {
+                    KullaniciId = kullaniciId.Value, // Null koalesans operatörü ile kontrol edin
+                    GorevAdi = gorevAdi,
+                    GorevAciklama = gorevAciklama,
+                    Tarih = DateTime.Now // Şuanki zamanı ekle
+                };
+
+                // Veritabanına yeni görevi ekle
+                uyeDbİsle1.Gorevekle(yeniGorev.KullaniciId, yeniGorev.GorevAdi, yeniGorev.GorevAciklama);
+
+                // Başarı mesajını göster
+                TempData["SuccessMessage"] = $"{gorevAdi} görevi başarıyla eklenmiştir.";
+
+                // Sayfayı yönlendir
+                return RedirectToAction("düzenle", "Uyeler");
+            }
+            catch (Exception ex)
+            {
+                // Hata durumunda hatayı konsola yazdır
+                Console.WriteLine("Görev eklenirken bir hata oluştu: " + ex.ToString());
+
+                // Hata mesajını göster
+                TempData["ErrorMessage"] = "Görev eklenirken bir hata oluştu.";
+
+                // Sayfayı yeniden yükle
+                return RedirectToAction("Gorevekle");
+            }
+        }
+
+
+
+
+
+
     }
 }

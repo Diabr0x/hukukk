@@ -1,6 +1,7 @@
 ﻿@model hukukk.Models.UyelerModel
 
 @{
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
     ViewData["Title"] = "Düzenle";
 }
 
@@ -87,6 +88,21 @@
                             <label asp-for="Kullanici" class="control-label">Kullanıcı Adı:</label>
                             <input asp-for="Kullanici" class="form-control" />
                             <span asp-validation-for="Kullanici" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Adi_Soyadi" class="control-label">Adı Soyadı:</label>
+                            <input asp-for="Adi_Soyadi" class="form-control" />
+                            <span asp-validation-for="Adi_Soyadi" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Unvan" class="control-label">Ünvan:</label>
+                            <input asp-for="Unvan" class="form-control" />
+                            <span asp-validation-for="Unvan" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TelefonNo" class="control-label">Telefon Numarası:</label>
+                            <input asp-for="TelefonNo" class="form-control" />
+                            <span asp-validation-for="TelefonNo" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Sifre" class="control-label">Şifre:</label>

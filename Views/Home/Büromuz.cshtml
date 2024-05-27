@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<hukukk.Models.UyelerModel>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +10,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            color: #fff; /* Yazı rengi */
+            color: #fff;
             text-align: center;
         }
 
@@ -18,9 +19,9 @@
             margin: auto;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Hafif gölge efekti */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             text-align: left;
-            background-image: url('https://avehukuk.com/wp-content/uploads/2023/03/DAVA-VE-ICRA-TAKIBI-1.jpg'); /* Arka plan resmi */
+            background-image: url('https://avehukuk.com/wp-content/uploads/2023/03/DAVA-VE-ICRA-TAKIBI-1.jpg');
             background-size: cover;
             background-position: center;
         }
@@ -28,8 +29,8 @@
         h1 {
             font-size: 36px;
             margin-bottom: 20px;
-            margin-top: 50px; /* Sayfanın orta üst kısmına doğru yerleştirme */
-            text-align: center; /* Başlık metnini ortala */
+            margin-top: 50px;
+            text-align: center;
         }
 
         p {
@@ -41,72 +42,73 @@
             margin-bottom: 30px;
         }
 
-        .about h2 {
-            background-color: #333; /* Çalışanlar başlık arka plan rengi */
-            color: #fff; /* Çalışanlar başlık metin rengi */
-            padding: 10px 20px; /* Çalışanlar başlık içi boşluk */
-            border-radius: 5px; /* Çalışanlar başlık köşe yuvarlaklığı */
-            display: inline-block;
-            margin-right: 10px; /* Başlık ve içerik arası boşluk */
-        }
+            .about h2 {
+                background-color: #333;
+                color: #fff;
+                padding: 10px 20px;
+                border-radius: 5px;
+                display: inline-block;
+                margin-right: 10px;
+            }
 
         table {
             width: 100%;
-            max-width: 800px; /* Tablonun maksimum genişliği */
+            max-width: 800px;
             margin: auto;
             border-collapse: collapse;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Hafif gölge efekti */
-            background-color: #222; /* Çalışanlar tablo arka plan rengi */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background-color: #222;
+            margin-top: 30px; /* Tabloyu biraz aşağıya kaydır */
         }
 
         th, td {
-            border: 1px solid #fff; /* Kenar çizgileri */
+            border: 1px solid #fff;
             padding: 10px;
             text-align: center;
         }
 
         th {
-            background-color: #333; /* Başlık arka plan rengi */
-            color: #fff; /* Başlık metin rengi */
+            background-color: #333;
+            color: #fff;
         }
 
         tr:nth-child(even) {
-            background-color: rgba(255, 255, 255, 0.2); /* Çift sıradaki arka plan rengi */
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         tr:hover {
-            background-color: rgba(255, 255, 255, 0.3); /* Üzerine gelindiğinde arka plan rengi */
-            cursor: pointer; /* İşaretçiyi el simgesi yap */
+            background-color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <h1>Hukuk Büromuza Hoşgeldiniz</h1>
     <div class="container">
-        <div class="about">
-            <h2>Çalışanlar</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Ad Soyad</th>
-                        <th>Çalışma Grubu</th>
-                        <th>Telefon Numarası</th>
-                        <th>Eposta Adresi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr onclick="window.location.href = '/Home/Index2';" style="cursor: pointer;">
-                        <td>Çalışan 1</td>
-                        <td>Hukuk Departmanı</td>
-                        <td>1234567890</td>
-                        <td>calisan1@example.com</td>
-                    </tr>
-                    <!-- Diğer çalışanlar buraya eklenebilir -->
-                </tbody>
-            </table>
-        </div>
+        <h1>Büromuz Hakkında</h1>
+        <p class="about">
+            <h2>Üyeler</h2>
+        </p>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Adı-Soyadı</th>
+                <th>Eposta</th>
+                <th>Telefon Numarası</th>
+                <th>Ünvanı</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Kullanici</td>
+                    <td>@item.Email</td>
+                    <td>@item.TelefonNo</td>
+                    <td>@item.Unvan</td>
+                </tr>
+            }
+        </table>
     </div>
 </body>
 </html>

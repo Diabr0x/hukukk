@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Açılış Ekranı";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hukukk - Açılış Ekranı</title>
+    <!-- Font Awesome kütüphanesi -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Genel stillendirme */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Başlık stilleri */
+        .welcome-container {
+            text-align: center;
+            margin-top: 150px;
+            position: relative; /* Metin ve arka planı birbirine bağlamak için */
+            z-index: 1; /* Metni öne çıkar */
+        }
+
+        .welcome-text {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.7); /* Metin arkasına opak bir beyaz arka plan ekler */
+            padding: 10px; /* Arka planın etrafına biraz boşluk ekler */
+            border-radius: 5px; /* Köşeleri yuvarlar */
+            display: inline-block; /* Metnin sadece içeriği kadar genişlemesini sağlar */
+        }
+
+        /* Giriş mesajı stilleri */
+        .panel-access {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+            font-size: 18px;
+            background-color: rgba(255, 255, 255, 0.9); /* Metin arkasına opak bir beyaz arka plan ekler */
+            padding: 20px; /* Metin içeriğine göre daha geniş bir alan sağlar */
+            border-radius: 10px; /* Köşeleri yuvarlar */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Hafif bir gölgelendirme efekti ekler */
+        }
+
+            .panel-access p {
+                margin-bottom: 10px; /* Yazının altına biraz boşluk ekler */
+            }
+
+            .panel-access .icon {
+                color: #f00; /* İkon rengi kırmızı */
+                margin-right: 5px; /* İkon ile yazı arasına biraz boşluk ekler */
+            }
+
+        /* Arka plan resmi */
+        body {
+            background-image: url('https://www.dhdanismanlik.com/wp-content/uploads/2023/08/hukuk-davalari-nelerdir-1.jpg'); /* Arka plan resminin dosya adını buraya girin */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-container">
+        <h1 class="welcome-text">Hukuk Bürosu Yönetim Sistemine Hoşgeldiniz</h1>
+    </div>
+    <div class="panel-access">
+        <p><i class="fas fa-exclamation-circle icon"></i> Lütfen panele ulaşmak için giriş yapınız.</p>
+    </div>
+</body>
+</html>

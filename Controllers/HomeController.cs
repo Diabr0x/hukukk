@@ -1,9 +1,10 @@
 using hukukk.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace hukukk.Controllers
 {
+    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -13,47 +14,76 @@ namespace hukukk.Controllers
             _logger = logger;
         }
 
-      
+        [Authorize]
+        public ActionResult Büromuz(int Id)
+        {
+            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
+            UyeDbİsle uyeDbİsle1 = new UyeDbİsle();
+            ModelState.Clear();
+            return View(uyeDbİsle1.Uyelerigetir());
+        }
         public IActionResult Index()
         {
+            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
             return View();
         }
+        
         public IActionResult Index2()
         {
+            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
+            return View();
+        }
+        [AllowAnonymous]
+        public IActionResult acilisekrani()
+        {
+            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
             return View();
         }
 
+        
         public IActionResult Privacy()
         {
+            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
             return View();
         }
         public IActionResult Index1()
         {
+            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
             return View();
         }
-        public IActionResult Büromuz()
+       
+
+
+        public IActionResult detaylar()
         {
-            return View();
-        }
-        public IActionResult login()
-        {
-            return View();
-        }
-        public IActionResult register()
-        {
+            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
             return View();
         }
         public IActionResult düzenle()
         {
+            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
             return View();
         }
         public IActionResult ekle()
         {
+            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
             return View();
         }
         public IActionResult düzenlee() 
         {
+            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
             return View();
         }
+        
     }
 }

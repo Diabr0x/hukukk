@@ -1,0 +1,27 @@
+﻿@model IEnumerable<hukukk.Models.GorevModel>
+
+<h1>Görevler</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Kullanıcı ID</th>
+            <th>Görev Adı</th>
+            <th>Görev Açıklaması</th>
+            <th>Tarih</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var gorev in Model)
+        {
+            <tr>
+                <td>@gorev.Id</td>
+                <td>@gorev.KullaniciId</td>
+                <td>@gorev.GorevAdi</td>
+                <td>@gorev.GorevAciklama</td>
+                <td>@gorev.Tarih</td>
+            </tr>
+        }
+    </tbody>
+</table>

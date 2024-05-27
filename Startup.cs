@@ -1,48 +1,66 @@
-﻿using hukukk.Models;
+﻿using hukukk.Controllers;
+using hukukk.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace hukukk
+public class Startup
 {
-    public class Startup
+    public Startup(IConfiguration configuration)
     {
-        // ConfigureServices metodunda gerekli servislerin eklenmesi
-        public void ConfigureServices(IServiceCollection services)
+        Configuration = configuration;
+    }
 
+    public IConfiguration Configuration { get; }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddMvc();
+        services.AddAuthorization();
+        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x => { x.LoginPath = "/Home/acilisekrani"; });
+        services.AddScoped<UyeDbİsle>();
+        services.AddScoped<LoginController>();
+
+        // Session'ı ekle
+        services.AddDistributedMemoryCache();
+        services.AddSession(options =>
         {
-            services.AddScoped<UyeDbİsle>();
-            services.AddControllersWithViews(); // MVC servislerini eklemek için
+            options.IdleTimeout = TimeSpan.FromMinutes(30); // Session süresi
+            options.Cookie.HttpOnly = true;
+            options.Cookie.IsEssential = true;
+        });
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+        else
+        {
+            app.UseExceptionHandler("/Home/Error");
+            app.UseHsts();
         }
 
-        // Configure metodunda HTTP isteği işleme mantığı
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+
+        app.UseRouting();
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        // Session'ı kullan
+        app.UseSession();
+
+        app.UseEndpoints(endpoints =>
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage(); // Geliştirme ortamında hata sayfasını kullan
-            }
-            else
-            {
-                // Prodüksiyon ortamı için hata yönetimi
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts(); // HTTP Strict Transport Security (HSTS) özelliğini kullan
-            }
-
-            app.UseHttpsRedirection(); // HTTPS'e yönlendirme
-            app.UseStaticFiles(); // Statik dosyaları sunma (css, js, resimler vb.)
-
-            app.UseRouting(); // Routing (yönlendirme) işlemleri
-
-            app.UseAuthorization(); // Yetkilendirme
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}"); // Varsayılan MVC yönlendirmesi
-            });
-        }
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=acilisekrani}/{id?}");
+        });
     }
 }

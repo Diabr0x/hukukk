@@ -11,6 +11,6 @@ public class DestekController : Controller
         // Başarı mesajını ViewBag'e veya ViewData'ya ekleyin
         ViewBag.SuccessMessage = successMessage;
         // Index.cshtml görünümünü geri dönün
-        return View();
+        return View("Index");
     }
 }

@@ -1,6 +1,7 @@
 ﻿@model hukukk.Models.UyelerModel
 
 @{
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
     ViewData["Title"] = "silme";
 }
 
@@ -35,10 +36,28 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TelefonNo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TelefonNo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Unvan)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Unvan)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Adi_Soyadi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Adi_Soyadi)
+        </dd>
     </dl>
     
     <form asp-action="silme">
         <input type="submit" value="Sil" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="düzenle">Back to List</a>
     </form>
 </div>

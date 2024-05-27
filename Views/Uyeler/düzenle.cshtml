@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<hukukk.Models.UyelerModel>
 
 @{
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
     ViewData["Title"] = "Üyeleri Düzenle";
 }
 
@@ -97,13 +98,16 @@
     <div class="container">
         <h1>@ViewData["Title"]</h1>
         <a asp-action="ekle" class="btn btn-primary btn-create">Yeni Üye Ekle</a>
+        <a asp-action="Gorevekle" class="btn btn-primary btn-create">Görev Ekle</a>
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Adı Soyadı</th>
+                        <th>Telefon Numarası</th>
+                        <th>Ünvan</th>
                         <th>Kullanıcı Adı</th>
-                        <th>Şifre</th>
                         <th>Email</th>
                         <th>İşlemler</th>
                     </tr>
@@ -113,12 +117,14 @@
                     {
                         <tr>
                             <td>@item.Id</td>
+                            <td>@item.Adi_Soyadi</td>
+                            <td>@item.TelefonNo</td>
+                            <td>@item.Unvan</td>
                             <td>@item.Kullanici</td>
-                            <td>@item.Sifre</td>
                             <td>@item.Email</td>
                             <td>
                                 <a asp-action="düzenlee" asp-route-id="@item.Id" class="btn btn-info btn-actions"><i class="fas fa-edit"></i> Düzenle</a>
-                                <a asp-action="details" asp-route-id="@item.Id" class="btn btn-info btn-actions"><i class="fas fa-info-circle"></i> Detaylar</a>
+                                <a asp-action="detaylar" asp-route-id="@item.Id" class="btn btn-info btn-actions"><i class="fas fa-info-circle"></i> Detaylar</a>
                                 <a asp-action="silme" asp-route-id="@item.Id" class="btn btn-danger btn-actions"><i class="fas fa-trash-alt"></i> Sil</a>
                             </td>
                         </tr>
