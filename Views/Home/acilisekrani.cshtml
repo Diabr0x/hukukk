@@ -34,6 +34,7 @@
             padding: 10px; /* Arka planın etrafına biraz boşluk ekler */
             border-radius: 5px; /* Köşeleri yuvarlar */
             display: inline-block; /* Metnin sadece içeriği kadar genişlemesini sağlar */
+            animation: fadeInDown 2s ease-out; /* Animasyon ekler */
         }
 
         /* Giriş mesajı stilleri */
@@ -46,6 +47,7 @@
             padding: 20px; /* Metin içeriğine göre daha geniş bir alan sağlar */
             border-radius: 10px; /* Köşeleri yuvarlar */
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Hafif bir gölgelendirme efekti ekler */
+            animation: fadeInUp 2s ease-out; /* Animasyon ekler */
         }
 
             .panel-access p {
@@ -63,6 +65,31 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+        }
+
+        /* Animasyonlar */
+        @@-webkit-keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @@-webkit-keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>

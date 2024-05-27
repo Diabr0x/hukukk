@@ -14,7 +14,7 @@ namespace hukukk.Controllers
             _logger = logger;
         }
 
-        [Authorize]
+        
         public ActionResult Büromuz(int Id)
         {
             ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";

@@ -6,32 +6,43 @@
     <title>@ViewData["Title"] - Hukukk</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9; /* Arka plan rengi */
-            color: #333; /* Yazı rengi */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(45deg, #007bff, #00c6ff, #6a00ff);
+            background-size: 400% 400%;
+            animation: gradientBackground 15s ease infinite;
+            color: #333;
         }
 
         .container {
-            width: 400px; /* Kutu genişliği */
-            padding: 20px;
-            border-radius: 10px;
-            background-color: #fff; /* Kutu arka plan rengi */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+            width: 400px;
+            padding: 30px 20px;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.9); /* Daha hafif bir beyaz arka plan rengi */
+            backdrop-filter: blur(10px); /* Arka planı bulanıklaştırma efekti */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
             text-align: center;
-            margin-bottom: 20px;
-            color: #007bff; /* Başlık rengi */
+            margin-bottom: 25px;
+            color: #007bff;
+            font-size: 24px;
         }
 
         .form-group {
@@ -43,20 +54,30 @@
             font-weight: bold;
             margin-bottom: 5px;
             display: block;
-            color: #555; /* Etiket rengi */
+            color: #555;
+            font-size: 14px;
         }
 
         input[type="text"],
         input[type="email"],
         select,
         textarea {
-            width: calc(100% - 22px); /* Inputların genişliğini ayarla */
+            width: calc(100% - 22px);
             padding: 10px;
-            border: 1px solid #ddd; /* Kenarlık rengi */
+            border: 1px solid #ddd;
             border-radius: 5px;
-            background-color: #f5f5f5; /* Input arka plan rengi */
-            color: #333; /* Input yazı rengi */
+            background-color: #f5f5f5;
+            color: #333;
             margin-top: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #007bff;
+            outline: none;
         }
 
         select {
@@ -70,22 +91,43 @@
             background-color: #007bff;
             color: #fff;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
-            input[type="submit"]:hover {
-                background-color: #0056b3;
-            }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        input[type="submit"]:active {
+            transform: translateY(0);
+        }
 
         .success-message {
-            color: #28a745; /* Başarı mesajı rengi */
+            color: #28a745;
             font-weight: bold;
             margin-top: 20px;
             text-align: center;
             display: none;
+            font-size: 16px;
+        }
+
+        @@-webkit-keyframes gradientBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+       
         }
     </style>
 </head>
