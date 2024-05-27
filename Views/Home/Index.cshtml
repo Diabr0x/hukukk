@@ -5,13 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ana Sayfa</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5; /* Yeni arka plan rengi */
-            color: #333; /* Yazı rengi */
-        }
+       body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+            background: linear-gradient(45deg, #CCFFFF, #6666FF, #CCCCFF);
+    background-size: 400% 400%;
+    animation: gradientBackground 15s ease infinite;
+    color: #333; /* Yazı rengi */
+}
+
+@@-webkit-keyframes gradientBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
 
         .container {
             display: flex;
@@ -32,7 +46,7 @@
             font-weight: bold;
             margin-bottom: 10px;
             text-align: center;
-            color: #007bff; /* Başlık rengi */
+            color: #2F4F4F; /* Başlık rengi */
         }
 
         .calendar-container,
@@ -42,7 +56,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
-            background-color: #fff; /* Takvim ve görevlerin arka plan rengi */
+            background-color: #FFE4E1; /* Takvim ve görevlerin arka plan rengi */
         }
 
         .month-year {
@@ -70,7 +84,7 @@
         }
 
             .day.selected {
-                background-color: #007bff; /* Seçilen günün arka plan rengi */
+                background-color: #778899; /* Seçilen günün arka plan rengi */
                 color: #fff; /* Seçilen günün yazı rengi */
             }
 
@@ -81,7 +95,7 @@
 
         .task {
             margin-bottom: 5px;
-            background-color: #007bff; /* Görev kutusunun arka plan rengi */
+            background-color: #778899; /* Görev kutusunun arka plan rengi */
             color: #fff; /* Görev kutusunun yazı rengi */
             padding: 10px; /* Görev kutusunun iç boşluğu */
             border-radius: 5px; /* Görev kutusunun köşe yuvarlama */
@@ -91,11 +105,11 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Hoşgeldinizzz</h1>
+            <h1>HOŞGELDİNİZ</h1>
         </div>
 
         <div class="calendar-container">
-            <div class="container-title">Takvim burası</div>
+            <div class="container-title">Takvim</div>
             <div class="month-year">
                 @DateTime.Now.ToString("MMMM yyyy")
             </div>

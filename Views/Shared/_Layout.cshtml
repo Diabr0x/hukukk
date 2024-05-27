@@ -116,24 +116,30 @@
             background-color: #28a745;
             border: none;
             border-radius: 5px;
-            padding: 5px 25px;
+            padding: 8px 25px; /* Buton içeriği ile kenar arasındaki mesafe */
             margin-left: 10px;
             cursor: pointer;
             transition: background-color 0.3s ease;
             font-size: 1rem;
+            display: flex; /* İçeriği yatay hizala */
+            align-items: center; /* İçeriği dikeyde ortala */
         }
 
             .admin-btn:hover {
                 background-color: #218838;
             }
 
+            .admin-btn i {
+                margin-right: 5px; /* İkon ile buton içeriği arasında boşluk bırak */
+            }
+
         /* Sidebar stilleri */
         .sidebar {
             width: 200px;
             background-color: #1f1f1f; /* Menü arka plan rengi */
-            padding-top: 20px;
+            padding-top: 10px;
             position: fixed;
-            top: 60px; /* Üst çubuk yüksekliği kadar aşağıya kaydır */
+            top: 55px; /* Üst çubuk yüksekliği kadar aşağıya kaydır */
             left: 0;
             bottom: 0; /* Sayfayı yukarıdan aşağıya kadar kaplar */
             z-index: 100; /* Üst çubuğun altında kalır */
@@ -178,7 +184,10 @@
         @if ((bool)(ViewData["IsLoggedIn"] ?? false) && (string)ViewData["UserName"] == "Admin")
         {
             // Eğer kullanıcı Admin ise, yönetim butonunu göster
-            <button onclick="openAdminPage()">Yönetim</button>
+            <button class="admin-btn" onclick="openAdminPage()">
+                <i class="fas fa-cogs"></i> <!-- YÖNETİM butonuna ikon ekle -->
+                Yönetim
+            </button>
         }
         
         <div class="login-btn" style="margin-left: auto; padding-right: 20px;">

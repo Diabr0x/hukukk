@@ -3,6 +3,7 @@
 <head>
     <title>@ViewBag.Title - Alternative Layout</title>
     <link rel="stylesheet" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,15 +14,33 @@
         header {
             display: flex;
             justify-content: flex-end;
+            align-items: center; /* İçerikleri dikeyde hizalamak için */
             padding: 20px;
-            background-color: #f8f9fa;
+            background-color: #000000; /* Başlangıç rengi */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             position: relative;
+            animation: changeBackgroundColor 5s infinite alternate; /* Animasyon ekleme */
+        }
+
+        @@-webkit-keyframes changeBackgroundColor {
+            0% {
+                background-color: #000005; /* Başlangıç rengi */
+            }
+
+            25% {
+                background-color: #000015; /* Başlangıç rengi */
+            }
+            50% {
+                background-color: #0005; /* İlk geçiş rengi */
+            }
+            100% {
+                background-color: #0000; /* İkinci geçiş rengi */
+            }
         }
 
         button {
             background-color: #007bff;
-            color: white;
+            color: blanchedalmond;
             border: none;
             border-radius: 5px;
             padding: 10px 20px;
@@ -29,15 +48,23 @@
             font-size: 1rem;
         }
 
-            button:hover {
-                background-color: #0056b3;
-            }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .icon {
+            margin-left: 10px; /* İkon ve metin arasında boşluk bırakmak için */
+            color: #fff; /* İkon rengi */
+        }
     </style>
 </head>
 <body>
     <header>
         <!-- Yönetim panelinden çıkış yap butonu -->
-        <button onclick="location.href='@Url.Action("Index", "Home")'">Yönetim panelinden çıkış yap</button>
+        <button onclick="location.href='@Url.Action("Index", "Home")'">
+            Yönetim panelinden çıkış yap
+            <i class="fas fa-sign-out-alt icon"></i> <!-- Font Awesome'den bir çıkış ikonu -->
+        </button>
     </header>
     <div class="content">
         @RenderBody()

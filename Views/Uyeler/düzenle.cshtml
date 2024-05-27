@@ -17,6 +17,29 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f0f2f5;
+            animation: changeBackground 10s ease infinite;
+        }
+
+        @@-webkit-keyframes changeBackground {
+            0% {
+                background-color: #CCFFFF;
+            }
+
+            25% {
+                background-color: #3366CC; /* Arada bir ara renk ekleyebilirsiniz */
+            }
+
+            50% {
+                background-color: #6666FF;
+            }
+
+            75% {
+                background-color: #CCCCFF; /* Bir diğer ara renk */
+            }
+
+            100% {
+                background-color: #FFFFFF;
+            }
         }
 
         .container {
@@ -27,10 +50,12 @@
             color: #333;
             text-align: center;
             margin-bottom: 30px;
+            animation: fadeInUp 1s ease;
         }
 
         .btn-create {
             margin-bottom: 20px;
+            animation: slideInRight 1s ease;
         }
 
         .table {
@@ -38,6 +63,7 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease;
         }
 
             .table thead th {
@@ -64,6 +90,7 @@
             padding: 8px 16px;
             font-size: 14px;
             border-radius: 5px;
+            animation: pulse 1s infinite alternate;
         }
 
             .btn-actions i {
@@ -92,13 +119,57 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
+         @@-webkit-keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+         @@-webkit-keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+         @@-webkit-keyframes fadeInUp {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @@-webkit-keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.05);
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>@ViewData["Title"]</h1>
-        <a asp-action="ekle" class="btn btn-primary btn-create">Yeni Üye Ekle</a>
-        <a asp-action="Gorevekle" class="btn btn-primary btn-create">Görev Ekle</a>
+        <a asp-action="ekle" class="btn btn-primary btn-create">
+            <i class="fas fa-user-plus"></i> Yeni Üye Ekle
+        </a>
+        <a asp-action="Gorevekle" class="btn btn-primary btn-create">
+            <i class="fas fa-tasks"></i> Görev Ekle
+        </a>
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
                 <thead>
