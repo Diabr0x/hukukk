@@ -1,7 +1,0 @@
-﻿CREATE TABLE [dbo].[Uyeler]
-(
-	[Id] INT NULL PRIMARY KEY IDENTITY, 
-    [Kullanici] NVARCHAR(50) NOT NULL, 
-    [Sifre] NVARCHAR(50) NOT NULL, 
-    [Email] NVARCHAR(50) NOT NULL
-)
