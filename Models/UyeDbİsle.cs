@@ -221,7 +221,7 @@ namespace hukukk.Models
                 komut.Parameters.AddWithValue("@Tarih", yeniGorev.Tarih);
 
                 // Komutun çalıştırılması
-                baglanti.Open();
+               
                 komut.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -243,7 +243,7 @@ namespace hukukk.Models
 
             try
             {
-                baglanti.Open();
+                
                 SqlDataReader reader = komut.ExecuteReader();
                 while (reader.Read())
                 {
