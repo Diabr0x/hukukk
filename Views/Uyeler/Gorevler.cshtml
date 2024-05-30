@@ -1,6 +1,4 @@
-﻿@model IEnumerable<hukukk.Models.GorevModel>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -39,38 +37,97 @@
             .table th {
                 background-color: #f2f2f2;
                 color: #333;
+                font-weight: bold;
             }
 
             .table tbody tr:hover {
                 background-color: #f9f9f9;
+            }
+
+        /* Butonlar için stil */
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end; /* Butonları sağa hizala */
+            gap: 5px;
+        }
+
+            .action-buttons a {
+                padding: 8px 15px;
+                border-radius: 5px;
+                text-decoration: none;
+                cursor: pointer;
+                color: #007bff;
+                background-color: transparent;
+                border: 1px solid #007bff;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+                .action-buttons a:hover {
+                    background-color: #007bff;
+                    color: #fff;
+                }
+
+        .edit-button {
+            background-color: #007bff;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+        }
+
+            .edit-button:hover,
+            .delete-button:hover {
+                filter: brightness(110%);
             }
     </style>
 </head>
 <body>
     <h1>Görevler</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Kullanıcı ID</th>
-                <th>Görev Adı</th>
-                <th>Görev Açıklaması</th>
-                <th>Tarih</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var gorev in Model)
-            {
+    @if (Model != null)
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@gorev.Id</td>
-                    <td>@gorev.KullaniciId</td>
-                    <td>@gorev.GorevAdi</td>
-                    <td>@gorev.GorevAciklama</td>
-                    <td>@gorev.Tarih</td>
+                    <th>ID</th>
+                    <th>Kullanıcı ID</th>
+                    <th>Görev Adı</th>
+                    <th>Görev Açıklaması</th>
+                    <th>Oluşturulma Tarihi</th>
+                    <th>Duruşma Tarihi</th>
+                    <th>Müvekkil</th>
+                    <th>Davanın Durumu</th>
+                    <th>İşlemler</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var gorev in Model)
+                {
+                    <tr>
+                        <td>@gorev.Id</td>
+                        <td>@gorev.KullaniciId</td>
+                        <td>@gorev.GorevAdi</td>
+                        <td>@gorev.GorevAciklama</td>
+                        <td>@gorev.Tarih</td>
+                        <td>@gorev.DurusmaTarihi</td>
+                        <td>@gorev.Muvekkil</td>
+                        <td>@gorev.DavaninDurumu</td>
+                        <td class="action-buttons">
+                            <a asp-action="GorevDuzenle" asp-route-id="@gorev.Id" class="edit-button"><i class="fas fa-edit"></i> Düzenle</a>
+                            <a asp-action="GorevSil" asp-route-id="@gorev.Id" class="delete-button"><i class="fas fa-trash-alt"></i> Sil</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Gösterilecek görev yok.</p>
+    }
+
+    <div class="text-center">
+        <a asp-action="düzenle" class="btn">Geri Dön</a>
+    </div>
 </body>
 </html>

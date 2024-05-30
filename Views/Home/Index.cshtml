@@ -6,7 +6,7 @@
     <title>Ana Sayfa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-       body {
+        body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -20,9 +20,11 @@
             0% {
                 background-position: 0% 50%;
             }
+
             50% {
                 background-position: 100% 50%;
             }
+
             100% {
                 background-position: 0% 50%;
             }
@@ -39,6 +41,7 @@
 
         .header {
             text-align: center;
+            margin-top: 50px; 
             margin-bottom: 20px;
         }
 
@@ -75,19 +78,21 @@
 
         .day {
             width: calc(100% / 7);
-            height: 30px;
-            line-height: 30px;
+            height: 60px;
             text-align: center;
             border: 1px solid #ccc; /* Kenarlık rengi */
             margin: 2px;
             background-color: #f9f9f9; /* Gün arka plan rengi */
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .day.selected {
-            background-color: #778899; /* Seçilen günün arka plan rengi */
-            color: #fff; /* Seçilen günün yazı rengi */
-        }
+            .day.selected {
+                background-color: #778899; /* Seçilen günün arka plan rengi */
+                color: #fff; /* Seçilen günün yazı rengi */
+            }
 
         .tasks {
             margin-top: 10px;
@@ -120,7 +125,11 @@
                     int daysInMonth = DateTime.DaysInMonth(today.Year, today.Month);
                     for (int i = 1; i <= daysInMonth; i++)
                     {
-                        <div class="day @(today.Day == i ? "selected" : "")">@i</div>
+                        var day = new DateTime(today.Year, today.Month, i);
+                        <div class="day @(today.Day == i ? "selected" : "")">
+                            <div>@i</div>
+                            <div>@day.ToString("dddd")</div> <!-- Haftanın günü -->
+                        </div>
                     }
                 }
             </div>
@@ -129,11 +138,12 @@
         <div class="tasks-container">
             <div class="container-title">Görevler <i class="fas fa-tasks"></i></div>
             <div class="tasks">
-                <div class="task">
-                    <div class="task">Görev 1</div>
-                <div class="task">Görev 2</div>
-                <div class="task">Görev 31</div>
-                <!-- Diğer görevlerin listesi burada olacak -->
+                @foreach (var gorev in ViewBag.Gorevler)
+                {
+                    <div class="task">
+                        @gorev.GorevAdi - @gorev.DurusmaTarihi.ToShortDateString()
+                    </div>
+                }
             </div>
         </div>
     </div>

@@ -13,10 +13,12 @@ namespace hukukk.Controllers
         {
             _logger = logger;
         }
+       
 
-        
         public ActionResult Büromuz(int Id)
         {
+            
+            ViewData["UserID"] = HttpContext.Session.GetString("UserId");
             ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
             ViewData["UserName"] = HttpContext.Session.GetString("UserName");
             UyeDbİsle uyeDbİsle1 = new UyeDbİsle();
@@ -25,13 +27,28 @@ namespace hukukk.Controllers
         }
         public IActionResult Index()
         {
+            
+            ViewData["UserID"] = HttpContext.Session.GetString("UserId");
             ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
             ViewData["UserName"] = HttpContext.Session.GetString("UserName");
+            int userId = Convert.ToInt32(ViewData["UserID"]);// Kullanıcı kimliğini almak için gerçek bir mekanizma kullanmalısınız.
+
+            // Bu kullanıcıya ait görevleri veritabanından alalım.
+            UyeDbİsle uyeDbIsle = new UyeDbİsle(); // UyeDbİsle sınıfını kullanarak veritabanı işlemlerini yapmak için bir örnek oluşturun
+            var gorevler = uyeDbIsle.GorevleriGetir2(userId); // Kullanıcıya ait görevleri getiren bir metodu çağırın
+
+            // ViewData kullanarak kullanıcı adını ve kimliğini görünüme aktaralım
+
+            ViewData["UserID"] = userId;
+
+            // ViewBag kullanarak görevleri görünüme aktaralım
+            ViewBag.Gorevler = gorevler;
             return View();
         }
         
         public IActionResult Index2()
         {
+            ViewData["UserID"] = HttpContext.Session.GetString("UserId");
             ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
             ViewData["UserName"] = HttpContext.Session.GetString("UserName");
             return View();
@@ -39,6 +56,7 @@ namespace hukukk.Controllers
         [AllowAnonymous]
         public IActionResult acilisekrani()
         {
+            ViewData["UserID"] = HttpContext.Session.GetString("UserId");
             ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
             ViewData["UserName"] = HttpContext.Session.GetString("UserName");
             return View();
@@ -47,12 +65,14 @@ namespace hukukk.Controllers
         
         public IActionResult Privacy()
         {
+            ViewData["UserID"] = HttpContext.Session.GetString("UserId");
             ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
             ViewData["UserName"] = HttpContext.Session.GetString("UserName");
             return View();
         }
         public IActionResult Index1()
         {
+            ViewData["UserID"] = HttpContext.Session.GetString("UserId");
             ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
             ViewData["UserName"] = HttpContext.Session.GetString("UserName");
             return View();
@@ -62,28 +82,44 @@ namespace hukukk.Controllers
 
         public IActionResult detaylar()
         {
-            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
-            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
-            return View();
-        }
-        public IActionResult düzenle()
-        {
-            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
-            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
-            return View();
-        }
-        public IActionResult ekle()
-        {
-            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
-            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
-            return View();
-        }
-        public IActionResult düzenlee() 
-        {
+            ViewData["UserID"] = HttpContext.Session.GetString("UserId");
             ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
             ViewData["UserName"] = HttpContext.Session.GetString("UserName");
             return View();
         }
         
+        public IActionResult ekle()
+        {
+            ViewData["UserID"] = HttpContext.Session.GetString("UserId");
+            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
+            return View();
+        }
+        
+        public ActionResult Gorevlerim()
+        {
+            ViewData["UserID"] = HttpContext.Session.GetString("UserId");
+            ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            ViewData["UserName"] = HttpContext.Session.GetString("UserName");
+            // Örneğin, kullanıcı adı ve kimliğini varsayılan değerlerle alalım.
+             // Kullanıcı adını almak için gerçek bir mekanizma kullanmalısınız.
+            int userId = Convert.ToInt32(ViewData["UserID"]);// Kullanıcı kimliğini almak için gerçek bir mekanizma kullanmalısınız.
+
+            // Bu kullanıcıya ait görevleri veritabanından alalım.
+            UyeDbİsle uyeDbIsle = new UyeDbİsle(); // UyeDbİsle sınıfını kullanarak veritabanı işlemlerini yapmak için bir örnek oluşturun
+            var gorevler = uyeDbIsle.GorevleriGetir2(userId); // Kullanıcıya ait görevleri getiren bir metodu çağırın
+
+            // ViewData kullanarak kullanıcı adını ve kimliğini görünüme aktaralım
+           
+            ViewData["UserID"] = userId;
+
+            // ViewBag kullanarak görevleri görünüme aktaralım
+            ViewBag.Gorevler = gorevler;
+
+            // Gorevlerim.cshtml görünümünü döndürelim
+            return View();
+        }
+
+
     }
 }

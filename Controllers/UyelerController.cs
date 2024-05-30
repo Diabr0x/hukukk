@@ -1,8 +1,13 @@
 ﻿using hukukk.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace hukukk.Controllers
 {
+    
     public class UyelerController : Controller
     {
         public IActionResult düzenle()
@@ -36,19 +41,21 @@ namespace hukukk.Controllers
         [HttpGet]
         public ActionResult düzenlee(int Id)
         {
+           
             UyeDbİsle uyeDbİsle1 = new UyeDbİsle();
             return View(uyeDbİsle1.Uyelerigetir().Find(Uyemodeli => Uyemodeli.Id == Id));
         }
         [HttpPost]
-        public ActionResult düzenlee(int Id, UyelerModel liste1) 
+        public ActionResult düzenlee(int Id, UyelerModel liste1)
         {
-            try 
+            
+            try
             {
                 UyeDbİsle uyeDbİsle1 = new UyeDbİsle();
                 uyeDbİsle1.Uyebilgiduzen(liste1);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index"); // Sorun: "Index" eylemine yönlendirme, bu denetleyicide mevcut olmayabilir
             }
-            catch 
+            catch
             {
                 return View();
             }
@@ -104,7 +111,7 @@ namespace hukukk.Controllers
         }
 
         [HttpPost]
-        public IActionResult Gorevekle(int? kullaniciId, string gorevAdi, string gorevAciklama)
+        public IActionResult Gorevekle(int? kullaniciId, string gorevAdi, string gorevAciklama, DateTime? DurusmaTarihi, string Muvekkil, string DavaninDurumu)
         {
             ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
             ViewData["UserName"] = HttpContext.Session.GetString("UserName");
@@ -127,11 +134,14 @@ namespace hukukk.Controllers
                     KullaniciId = kullaniciId.Value, // Null koalesans operatörü ile kontrol edin
                     GorevAdi = gorevAdi,
                     GorevAciklama = gorevAciklama,
+                    DurusmaTarihi = DurusmaTarihi.Value, // Nullable türden değeri alın
+                    Muvekkil = Muvekkil,
+                    DavaninDurumu = DavaninDurumu,
                     Tarih = DateTime.Now // Şuanki zamanı ekle
                 };
 
                 // Veritabanına yeni görevi ekle
-                uyeDbİsle1.Gorevekle(yeniGorev.KullaniciId, yeniGorev.GorevAdi, yeniGorev.GorevAciklama);
+                uyeDbİsle1.Gorevekle(yeniGorev.KullaniciId, yeniGorev.GorevAdi, yeniGorev.GorevAciklama, yeniGorev.DurusmaTarihi, yeniGorev.Muvekkil, yeniGorev.DavaninDurumu);
 
                 // Başarı mesajını göster
                 TempData["SuccessMessage"] = $"{gorevAdi} görevi başarıyla eklenmiştir.";
@@ -151,11 +161,51 @@ namespace hukukk.Controllers
                 return RedirectToAction("Gorevekle");
             }
         }
-
-
-
-
-
+        public IActionResult GorevSil(int id)
+        {
+            UyeDbİsle uyeDbİsle1 = new UyeDbİsle();
+            bool silindi = uyeDbİsle1.GorevSil(id);
+            if (silindi)
+            {
+                return RedirectToAction("Gorevler");
+            }
+            else
+            {
+                // Silme işlemi başarısız oldu, burada hata mesajı gösterebilirsiniz.
+                return RedirectToAction("Gorevler");
+            }
+        }
+      
+        [HttpGet]
+        public ActionResult GorevDuzenle(int Id) 
+        {
+            UyeDbİsle uyeDbİsle1 = new UyeDbİsle();
+            return View(uyeDbİsle1.GorevleriGetir().Find(Gorevmodeli=>Gorevmodeli.Id == Id));
+        }
+        [HttpPost]
+        public ActionResult GorevDuzenle(int Id,GorevModel gorev) 
+        {
+            try { 
+            UyeDbİsle uyeDbİsle1 = new UyeDbİsle();
+                uyeDbİsle1.GorevDuzenle(gorev);
+                return RedirectToAction("Index");
+            }
+            catch 
+            { return View(); }
+        }
+       
 
     }
+
+
+
+
+
+
+
+
+
+
+
 }
+    

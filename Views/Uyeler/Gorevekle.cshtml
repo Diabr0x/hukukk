@@ -39,9 +39,26 @@
                         <label for="gorevAciklama">Görev Açıklaması:</label>
                         <textarea id="gorevAciklama" name="gorevAciklama" class="form-control" required></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="DurusmaTarihi">Duruşma Tarihi:</label>
+                        <input type="date" id="durusmaTarihi" name="durusmaTarihi" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Muvekkil">Müvekkil:</label>
+                        <input type="text" id="Muvekkil" name="Muvekkil" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="DavaninDurumu">Davanın Durumu:</label>
+                        <select id="DavaninDurumu" name="DavaninDurumu" class="form-control" required>
+                            <option value="Başlamadı">Başlamadı</option>
+                            <option value="Devam ediyor">Devam ediyor</option>
+                            <option value="Sonuçlandı">Sonuçlandı</option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary">Ekle</button>
                 </form>
             </div>
         </div>
     </div>
 </body>
+</html>

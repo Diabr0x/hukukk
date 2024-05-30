@@ -28,7 +28,8 @@ namespace hukukk.Controllers
                     {
                         HttpContext.Session.SetString("IsLoggedIn", "true");
                         HttpContext.Session.SetString("UserName", model.Kullanici);
-                       
+                        HttpContext.Session.SetString("UserId", user.Id.ToString());
+
                         return RedirectToAction("Index", "Home");
                     }
                     else

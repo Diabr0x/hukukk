@@ -1,0 +1,18 @@
+﻿@model int
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Görev Silme</title>
+</head>
+<body>
+    <h1>Görev Silme</h1>
+
+    <form method="post">
+        @Html.AntiForgeryToken()
+        <p>Bu görevi silmek istediğinizden emin misiniz?</p>
+        <input type="hidden" name="id" value="@Model" />
+        <button type="submit">Evet, Sil</button>
+    </form>
+</body>
+</html>

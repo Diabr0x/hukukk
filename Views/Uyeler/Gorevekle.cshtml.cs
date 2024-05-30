@@ -30,7 +30,7 @@ namespace hukukk.Pages
             }
 
             Gorev.Tarih = DateTime.Now;
-            _uyeDbİsle.Gorevekle(Gorev.KullaniciId, Gorev.GorevAdi, Gorev.GorevAciklama);
+            _uyeDbİsle.Gorevekle(Gorev.KullaniciId, Gorev.GorevAdi, Gorev.GorevAciklama, Gorev.DurusmaTarihi, Gorev.Muvekkil, Gorev.DavaninDurumu);
 
             TempData["SuccessMessage"] = "Yeni görev başarıyla eklendi.";
 
