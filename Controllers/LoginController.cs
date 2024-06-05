@@ -34,7 +34,6 @@ namespace hukukk.Controllers
                     }
                     else
                     {
-                        
                         ViewBag.Message = "Kullanıcı adı veya şifre yanlış";
                     }
                 }
@@ -49,5 +48,18 @@ namespace hukukk.Controllers
                 return View();
             }
         }
+
+        // Çıkış işlemi için eylem (action)
+        public IActionResult Logout()
+        {
+            // Oturumu sonlandır
+            HttpContext.Session.SetString("IsLoggedIn", "false");
+            HttpContext.Session.Remove("UserName");
+            HttpContext.Session.Remove("UserId");
+
+            // Açılış ekranına yönlendir
+            return RedirectToAction("acilisekrani", "Home");
+        }
     }
 }
+    

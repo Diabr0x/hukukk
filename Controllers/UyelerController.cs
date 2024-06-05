@@ -4,12 +4,14 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace hukukk.Controllers
 {
     
     public class UyelerController : Controller
     {
+
         public IActionResult düzenle()
         {
             ViewData["baslik"] = "veri tabanindaki üyeler";
@@ -60,18 +62,30 @@ namespace hukukk.Controllers
                 return View();
             }
         }
-        public ActionResult silme(int Id) 
+        public ActionResult silme(int Id)
         {
-            try 
+            try
             {
                 UyeDbİsle uyeDbİsle1 = new UyeDbİsle();
-                if(uyeDbİsle1.Uyesil(Id))
+
+                // Kullanıcıyı sil ve silme işlemi başarılıysa
+                if (uyeDbİsle1.Uyesil(Id))
                 {
                     ViewData["sonucmesaj"] = "Kayıt silindi";
                 }
+                else
+                {
+                    ViewData["sonucmesaj"] = "Kayıt silinirken bir hata oluştu.";
+                }
+
                 return RedirectToAction("düzenle");
-            }catch
-            { return View(); }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                ViewData["sonucmesaj"] = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
+                return RedirectToAction("düzenle");
+            }
         }
         public ActionResult detaylar(int Id)
         {
@@ -91,6 +105,7 @@ namespace hukukk.Controllers
         }
         public IActionResult Gorevler()
         {
+            ViewData["UserID"] = HttpContext.Session.GetString("UserId");
             ViewData["IsLoggedIn"] = HttpContext.Session.GetString("IsLoggedIn") == "true";
             ViewData["UserName"] = HttpContext.Session.GetString("UserName");
             UyeDbİsle uyeDbİsle1 = new UyeDbİsle();
@@ -188,7 +203,7 @@ namespace hukukk.Controllers
             try { 
             UyeDbİsle uyeDbİsle1 = new UyeDbİsle();
                 uyeDbİsle1.GorevDuzenle(gorev);
-                return RedirectToAction("Index");
+                return RedirectToAction("Gorevler");
             }
             catch 
             { return View(); }

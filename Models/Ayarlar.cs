@@ -1,13 +1,13 @@
 ﻿using System.Data.SqlClient;
-
+using static hukukk.Program;
 namespace hukukk.Models
 {
     public class Ayarlar
     {
-        public static int Sayac = 100; // Genel bir değişken
+        public static int Sayac = 100; 
 
-        // Veri tabanı bağlantı cümlesi
-        public static string bcumle = @"Server=(localdb)\MSSQLLocalDB;Database=Uyeler;Integrated Security=True";
+        
+        
 
         public static SqlConnection baglanti = null;
 
@@ -15,7 +15,7 @@ namespace hukukk.Models
         {
             try
             {
-                // SqlConnection objesini oluşturup bağlantıyı açma işlemleri
+               
                 baglanti = new SqlConnection(bcumle);
                 baglanti.Open();
                 Console.WriteLine("Bağlantı başarılı!");

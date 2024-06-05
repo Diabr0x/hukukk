@@ -197,8 +197,20 @@
             }
             else
             {
-                <span>Hoş Geldin <i class="fas fa-laptop"></i>, @ViewData["UserName"] Kullanıcı ID: @ViewData["UserId"])</span>
-
+                <span style="color: #0077cc; font-weight: bold; font-size: 18px;">
+                    <i class="fas fa-laptop" style="margin-right: 5px;"></i> Hoş Geldin
+                    <span style="color: #333; font-weight: normal;">@ViewData["UserName"]</span>
+                    <span style="color: #999; font-weight: normal;">(Kullanıcı ID: @ViewData["UserId"])</span>
+                </span>
+                <a href="@Url.Action("Logout", "Login")" class="btn btn-danger" style="background-color: #dc3545; border-color: #dc3545; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block; transition: background-color 0.3s ease; margin-right: 10px, margin-left: 5px;">
+                    <span style="margin-right: 5px;"><i class="fas fa-sign-out-alt"></i></span>
+                    Çıkış Yap
+                </a>
+                <span style="margin-right: 10px;">&nbsp;</span> <!-- Boşluk ekleme -->
+                <a href="https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=2709&MevzuatTur=1&MevzuatTertip=5" class="btn btn-primary" style="background-color: #007bff; border-color: #007bff; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block; transition: background-color 0.3s ease;">
+                    <span style="margin-right: 5px;"><i class="fas fa-book"></i></span>
+                    Anayasa Maddeleri
+                </a>
                 <!-- Sidebar -->
     <div class="sidebar">
         <a class="menu-item Ana sayfa" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Ana Sayfa</a>
